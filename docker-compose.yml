@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # Mock Master DB (OCI A1)
+  timescaledb:
+    image: timescale/timescaledb:latest-pg14
+    ports:
+      - "5435:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    volumes:
+      # Initialize schema on startup
+      - ./docs/schema.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # API Bridge (Edge Node)
+  api-bridge:
+    build:
+      context: ./api-bridge
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      # Override connection to local docker network
+      - DB_HOST=timescaledb
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=postgres
+      - API_PORT=3000
+      - X_API_KEY=local-test-key
+      - NODE_ENV=development
+      # Disable Tailscale execution for local dev (requires logic in start.sh or override command)
+      - TAILSCALE_AUTH_KEY=
+    depends_on:
+      - timescaledb
+    # Override command to skip Tailscale and just run the node server
+    command: [ "npm", "run", "dev" ]
+    volumes:
+      - ./api-bridge:/app
+      - /app/node_modules

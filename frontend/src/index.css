@@ -1,0 +1,42 @@
+:root {
+  --bg-primary: #0A0F1E;
+  --card-bg: rgba(16, 22, 40, 0.7);
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0AEC0;
+  
+  --color-running: #00FFA3;
+  --color-stopped: #FF3D71;
+  --color-infra: #00E5FF;
+  
+  --font-family: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #00E5FF, #00FFA3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

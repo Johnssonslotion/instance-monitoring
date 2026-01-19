@@ -1,0 +1,47 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  # 1. Deploy API Bridge (Container) to Northflank
+  deploy-api-bridge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build and Push to Northflank
+        # Note: Replace with actual Northflank action or CLI commands
+        # Example using Northflank CLI via Docker
+        run: |
+          echo "Building API Bridge Docker image..."
+          cd api-bridge
+          docker build -t status-bridge .
+          # northflank-deploy command would go here
+          echo "Deploying to Northflank..."
+
+  # 2. Deploy Frontend to Netlify
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    # Assuming frontend code will be in a 'frontend' directory or root
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: './' # Adjust if frontend is in a subfolder
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwritable-pull-request-deploy-message: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
