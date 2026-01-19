@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+### Added
+- [feat] External Monitoring Spec (v1.0) and implementation plan ([feat] 외부 모니터링 명세(v1.0) 및 구현 계획 수립)
+- [feat] Initial implementation of API Bridge (Status Bridge) ([feat] API 브릿지 초기 구현)
+  - `docs/schema.sql`: TimescaleDB schema for system metrics
+  - `api-bridge/server.js`: Node.js Express server for data bridging
+  - `api-bridge/.env.example`: Environment configuration template
+- [workflow] Added Database Schema Sync Workflow ([workflow] DB 스키마 동기화 워크플로우 추가)
+  - `.agent/workflows/sync-db-schema.md`
+- [feat] Implemented Communication Layer & CI/CD ([feat] 통신 레이어 및 CI/CD 구현)
+  - `api-bridge/Dockerfile`: Multi-stage build with Tailscale integration
+  - `api-bridge/start.sh`: Container entrypoint with VPN auto-join
+  - `.github/workflows/deploy.yml`: Automated deployment to Northflank/Netlify
+- [feat] Implemented Frontend Dashboard (Vite + React) ([feat] 프론트엔드 대시보드 구현)
+  - `frontend/`: React app with 'Oceanic Glassmorphism' dark mode UI
+  - Real-time Log Terminal & Metric Gauges via Socket.io
+
 ### Changed
 - [AI-Rules v1.4.0] Strengthened Git strategy with Doc/Code separation and no-immediate-merge policy ([AI-규칙 v1.4.0] 문서/코드 분리 및 즉시 머지 금지 정책을 통한 Git 전략 강화)
   - Strict branch naming: `docs/`, `feat/`, `fix/`, `research/` ([브랜치 네이밍 강제: docs, feat, fix, research])
