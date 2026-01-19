@@ -1,0 +1,9 @@
+# CODEOWNERS for AI Rules and Governance
+# ---------------------------------------
+# These owners must approve changes to the core project rules.
+
+/ai-rules/ @Johnssonslotion
+/.agent/rules/ @Johnssonslotion
+/.agent/workflows/ @Johnssonslotion
+/CHANGELOG.md @Johnssonslotion
+/change_history_guide.md @Johnssonslotion

@@ -1,0 +1,10 @@
+# Generic gitignore for project template
+.DS_Store
+# We generally want to ignore logs and build artifacts
+*.log
+dist/
+build/
+node_modules/
+.env
+.env.*
+!.env.example
