@@ -14,15 +14,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Build and Push to Northflank
-        # Note: Replace with actual Northflank action or CLI commands
-        # Example using Northflank CLI via Docker
-        run: |
-          echo "Building API Bridge Docker image..."
-          cd api-bridge
-          docker build -t status-bridge .
-          # northflank-deploy command would go here
-          echo "Deploying to Northflank..."
+      - name: Deploy to Northflank
+        uses: northflank/deploy-to-northflank@v1
+        with:
+          northflank-api-key: ${{ secrets.NORTHFLANK_API_TOKEN }}
+          project-id: ${{ secrets.NORTHFLANK_PROJECT_ID }}
+          service-id: ${{ secrets.NORTHFLANK_SERVICE_ID }}
+          image-path: ./api-bridge/Dockerfile
+          # credentials-id: ${{ secrets.NORTHFLANK_CREDENTIALS_ID }} # Optional: if using private registry
 
   # 2. Deploy Frontend to Netlify
   deploy-frontend:
